@@ -52,11 +52,12 @@ const average = (arr) =>
 
 export default function App() {
   const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState(tempMovieData);
 
   return (
     <>
-      <Navbar />
-      <Main watched={watched} />
+      <Navbar movies={movies}/>
+      <Main watched={watched} movies={movies} />
     </>
   );
 }
@@ -91,24 +92,22 @@ function Search() {
     />
   );
 }
-function NumResults() {
+function NumResults({movies}) {
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{movies.length}</strong> results
     </p>
   );
 }
-
-function Main({ watched }) {
+function Main({ watched, movies }) {
   return (
     <main className="main">
-      <ListBox />
+      <ListBox movies={movies} />
       <UserList watched={watched} />
     </main>
   );
 }
-
-function ListBox() {
+function ListBox({movies}) {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -119,12 +118,11 @@ function ListBox() {
       >
         {isOpen1 ? "+" : "-"}
       </button>
-      {isOpen1 && <MovieList />}
+      {isOpen1 && <MovieList movies={movies}/>}
     </div>
   );
 }
-function MovieList() {
-  const [movies, setMovies] = useState(tempMovieData);
+function MovieList({movies}) {
 
   return (
     <ul className="list">
@@ -148,7 +146,6 @@ function Movie({ movie }) {
     </li>
   );
 }
-
 function UserList({ watched }) {
   const [isOpen2, setIsOpen2] = useState(true);
 
