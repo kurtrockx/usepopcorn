@@ -109,7 +109,8 @@ export default function App() {
         setError("");
         return;
       }
-
+      
+      handleCloseMovie();
       fetchMovies();
 
       return function () {
@@ -195,7 +196,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   useEffect(() => {
     const handleKeydown = (e) => {
       if (e.code === "Escape") {
-        console.log("escape");
         onCloseMovie();
       }
     };
